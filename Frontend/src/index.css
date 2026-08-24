@@ -1,0 +1,203 @@
+:root {
+  --bg: #111318;
+  --card: #1a1d24;
+  --card-light: #20242d;
+  --border: #30343d;
+
+  --text: #d1d5db;
+  --text-heading: #ffffff;
+  --muted: #9ca3af;
+
+  --accent: #c084fc;
+  --accent-hover: #a855f7;
+
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Main App */
+
+.app {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  padding: 50px 25px;
+  text-align: center;
+}
+
+/* Main Heading */
+
+h1 {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* Subtitle */
+
+.subtitle {
+  margin-top: 35px;
+  margin-bottom: 45px;
+
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* Chat Box */
+
+.chat-box {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 25px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Textarea */
+
+textarea {
+  width: 100%;
+  resize: vertical;
+
+  min-height: 130px;
+
+  padding: 16px;
+
+  background: var(--card-light);
+  color: #ffffff;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #777d89;
+}
+
+textarea:focus {
+  border-color: var(--accent);
+}
+
+/* Button */
+
+button {
+  margin-top: 18px;
+
+  padding: 12px 24px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--accent);
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* AI Response */
+
+.response {
+  margin-top: 25px;
+
+  padding: 22px;
+
+  background: var(--card-light);
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  text-align: left;
+}
+
+.response h2 {
+  margin: 0 0 15px;
+
+  color: var(--text-heading);
+  font-size: 21px;
+}
+
+.response p {
+  margin: 0;
+
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .container {
+    padding: 35px 15px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    margin-top: 25px;
+    margin-bottom: 35px;
+    font-size: 17px;
+  }
+
+  .chat-box {
+    padding: 18px;
+  }
+}
