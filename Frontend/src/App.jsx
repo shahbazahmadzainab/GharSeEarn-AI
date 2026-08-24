@@ -1,4 +1,3 @@
-```jsx
 import { useState } from "react";
 import "./index.css";
 
@@ -20,15 +19,15 @@ function App() {
         throw new Error("VITE_API_URL is missing");
       }
 
-      const res = await fetch(
-        `${apiUrl}/chat?message=${encodeURIComponent(message)}`,
-        {
-          method: "POST",
-        }
-      );
+      const url =
+        apiUrl + "/chat?message=" + encodeURIComponent(message);
+
+      const res = await fetch(url, {
+        method: "POST",
+      });
 
       if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
+        throw new Error("Server error: " + res.status);
       }
 
       const data = await res.json();
@@ -36,10 +35,7 @@ function App() {
       setResponse(data.response || "No response received.");
     } catch (error) {
       console.error("Chat error:", error);
-
-      setResponse(
-        "Sorry, something went wrong. Please try again."
-      );
+      setResponse("Sorry, something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -55,7 +51,6 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-
         <div className="header">
           <h1>🏠 GharSeEarn AI</h1>
 
@@ -65,7 +60,6 @@ function App() {
         </div>
 
         <div className="chat-box">
-
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -85,21 +79,17 @@ function App() {
           {response && (
             <div className="response">
               <h2>🤖 AI Response</h2>
-
               <p>{response}</p>
             </div>
           )}
-
         </div>
 
         <p className="footer-text">
           💡 Get personalized career and home-based earning guidance.
         </p>
-
       </div>
     </div>
   );
 }
 
 export default App;
-```
