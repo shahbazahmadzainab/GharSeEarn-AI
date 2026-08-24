@@ -1,3 +1,4 @@
+```jsx
 import { useState } from "react";
 import "./index.css";
 
@@ -13,58 +14,92 @@ function App() {
     setResponse("");
 
     try {
-     const res = await fetch(
-  `http://127.0.0.1:8000/chat?message=${encodeURIComponent(message)}`,
-  {
-    method: "POST",
-  }
-);
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      if (!apiUrl) {
+        throw new Error("VITE_API_URL is missing");
+      }
+
+      const res = await fetch(
+        `${apiUrl}/chat?message=${encodeURIComponent(message)}`,
+        {
+          method: "POST",
+        }
+      );
 
       if (!res.ok) {
-        throw new Error("Server error");
+        throw new Error(`Server error: ${res.status}`);
       }
 
       const data = await res.json();
-      setResponse(data.response);
+
+      setResponse(data.response || "No response received.");
     } catch (error) {
-      console.error(error);
-      setResponse("Sorry, something went wrong. Please try again.");
+      console.error("Chat error:", error);
+
+      setResponse(
+        "Sorry, something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
     }
   };
 
   return (
     <div className="app">
       <div className="container">
-        <h1>🏠 GharSeEarn AI</h1>
 
-        <p className="subtitle">
-          Your Home-Based Career & Skills Assistant
-        </p>
+        <div className="header">
+          <h1>🏠 GharSeEarn AI</h1>
+
+          <p className="subtitle">
+            Your Home-Based Career & Skills Assistant
+          </p>
+        </div>
 
         <div className="chat-box">
+
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Tell me about your skills, experience, interests, and available time..."
-            rows="5"
+            rows={5}
+            disabled={loading}
           />
 
-          <button onClick={sendMessage} disabled={loading}>
+          <button
+            onClick={sendMessage}
+            disabled={loading || !message.trim()}
+          >
             {loading ? "Thinking..." : "Ask GharSeEarn AI"}
           </button>
 
           {response && (
             <div className="response">
-              <h2>AI Response</h2>
+              <h2>🤖 AI Response</h2>
+
               <p>{response}</p>
             </div>
           )}
+
         </div>
+
+        <p className="footer-text">
+          💡 Get personalized career and home-based earning guidance.
+        </p>
+
       </div>
     </div>
   );
 }
 
 export default App;
+```
